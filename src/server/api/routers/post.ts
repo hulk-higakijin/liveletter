@@ -18,17 +18,27 @@ export const postRouter = createTRPCRouter({
 
 	create: protectedProcedure
 		.input(
-			z.object({ name: z.string().min(1), emoji: z.string().min(1).max(1) }),
+			z.object({ name: z.string().min(1), emoji: z.string().min(1).max(2) }),
 		)
 		.mutation(async ({ ctx, input }) => {
 			return ctx.db.post.create({
 				data: {
 					name: input.name,
-          emoji: input.emoji,
+					emoji: input.emoji,
 					createdBy: { connect: { id: ctx.session.user.id } },
 				},
 			});
 		}),
+
+	createEmpty: protectedProcedure.mutation(async ({ ctx }) => {
+		return ctx.db.post.create({
+			data: {
+				name: "",
+				emoji: "",
+				createdBy: { connect: { id: ctx.session.user.id } },
+			},
+		});
+	}),
 
 	getLatest: protectedProcedure.query(async ({ ctx }) => {
 		const post = await ctx.db.post.findFirst({

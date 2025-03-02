@@ -2,9 +2,8 @@ import { api } from "~/trpc/server";
 import Layout from "~/app/layout";
 import UserAvatar from "~/users/components/UserAvatar";
 import PostCard from "~/posts/components/PostCard";
-import { GoPencil } from "react-icons/go";
-import Link from "next/link";
 import { auth } from "~/server/auth";
+import PostCreateButton from "~/posts/components/PostCreateButton";
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 	const { id } = await params;
@@ -23,14 +22,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 				<div className="flex gap-2 my-4">
 					<UserAvatar thumbnailUrl={user.image} />
 					<span className="my-auto">{user.name}</span>
-					{isMyPage && (
-						<Link
-							href={"/posts/edit"}
-							className="btn btn-neutral btn-circle ml-auto"
-						>
-							<GoPencil className="text-lg" />
-						</Link>
-					)}
+					{isMyPage && <PostCreateButton />}
 				</div>
 
 				<div role="tablist" className="tabs tabs-bordered border-primary">
