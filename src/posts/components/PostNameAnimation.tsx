@@ -2,7 +2,7 @@
 import type { Post } from "@prisma/client";
 import { TypeAnimation } from "react-type-animation";
 
-const PostContentAnimation = ({ name }: Post) => {
+const PostNameAnimation = ({ name }: Post) => {
 	return (
 		<div className="text-2xl">
 			<TypeAnimation
@@ -19,4 +19,4 @@ const PostContentAnimation = ({ name }: Post) => {
 	);
 };
 
-export default PostContentAnimation;
+export default PostNameAnimation;
