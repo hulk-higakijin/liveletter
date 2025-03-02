@@ -1,7 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
 
 .liveletter-container {
-  @apply max-w-6xl container mx-auto;
+  @apply max-w-3xl container mx-auto;
 }
