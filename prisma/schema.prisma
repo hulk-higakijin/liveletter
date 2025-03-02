@@ -20,7 +20,7 @@ model Post {
   emoji     String
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  status    PostStatus @default(DRAFT)
+  status    PostStatus @default(INITIALIZED)
 
   createdBy   User   @relation(fields: [createdById], references: [id])
   createdById String
@@ -30,6 +30,7 @@ model Post {
 }
 
 enum PostStatus {
+  INITIALIZED
   DRAFT
   PUBLISHED
   ARCHIVED

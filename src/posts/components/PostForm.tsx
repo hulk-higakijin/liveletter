@@ -7,7 +7,7 @@ import Tiptap from "~/core/components/Tiptap";
 import type { Post } from "@prisma/client";
 
 const PostForm = (post: Post) => {
-	const [title, setTitle] = useState(post.name);
+	const [title, setTitle] = useState(post.name );
 	const [emoji, setEmoji] = useState(post.emoji);
 	const [content, setContent] = useState("");
 	const [showEmojiPicker, setShowEmojiPicker] = useState(false);
