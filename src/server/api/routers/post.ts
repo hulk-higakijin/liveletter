@@ -74,7 +74,7 @@ export const postRouter = createTRPCRouter({
 		.input(z.object({ id: z.string() }))
 		.query(async ({ input }) => {
 			const posts = await db.post.findMany({
-				where: { createdById: input.id },
+				where: { createdById: input.id, NOT: { status: "INITIALIZED" } },
 				orderBy: { createdAt: "desc" },
 			});
 
