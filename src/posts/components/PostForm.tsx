@@ -11,7 +11,7 @@ import { useParams } from "next/navigation";
 const PostForm = (post: Post) => {
 	const [title, setTitle] = useState(post.name);
 	const [emoji, setEmoji] = useState(post.emoji);
-	const [content, setContent] = useState("");
+	// const [content, setContent] = useState("");
 	const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 	const updatePost = api.post.update.useMutation();
 	const param = useParams<{ id: string }>();
@@ -28,7 +28,7 @@ const PostForm = (post: Post) => {
 			}, 1000);
 			return () => clearTimeout(timer);
 		}
-	}, [title, emoji, param.id, updatePost.mutate]);
+	}, [title, emoji, param.id, updatePost]);
 
 	return (
 		<div className="flex flex-col gap-8 pt-28">
