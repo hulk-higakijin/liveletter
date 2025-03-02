@@ -1,6 +1,4 @@
-import Navbar from "~/core/components/Navbar";
 import { api } from "~/trpc/server";
-import Image from "next/image";
 import Layout from "~/app/layout";
 import UserAvatar from "~/users/components/UserAvatar";
 import PostCard from "~/posts/components/PostCard";
@@ -8,6 +6,7 @@ import PostCard from "~/posts/components/PostCard";
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 	const { id } = await params;
 	const { user } = await api.user.findOne({ id });
+	const { posts } = await api.post.whereByUserId({ id: user?.id || "" });
 
 	if (!user) {
 		return <p>No user</p>;
@@ -33,13 +32,11 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 					</a>
 				</div>
 
-        <div className="grid md:grid-cols-3 gap-x-4 gap-y-10 my-10">
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-        </div>
+				<div className="grid md:grid-cols-3 gap-x-4 gap-y-10 my-10">
+					{posts.map((post) => (
+						<PostCard key={post.id} {...post} />
+					))}
+				</div>
 			</div>
 		</Layout>
 	);
