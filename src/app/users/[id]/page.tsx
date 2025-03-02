@@ -3,6 +3,7 @@ import { api } from "~/trpc/server";
 import Image from "next/image";
 import Layout from "~/app/layout";
 import UserAvatar from "~/users/components/UserAvatar";
+import PostCard from "~/posts/components/PostCard";
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 	const { id } = await params;
@@ -32,6 +33,13 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 					</a>
 				</div>
 
+        <div className="grid md:grid-cols-3 gap-x-4 gap-y-10 my-10">
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+        </div>
 			</div>
 		</Layout>
 	);
