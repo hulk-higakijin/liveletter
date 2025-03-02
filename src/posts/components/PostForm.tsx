@@ -4,19 +4,20 @@ import EmojiPicker from "emoji-picker-react";
 import { GrEmoji } from "react-icons/gr";
 import { useEffect, useState } from "react";
 import Tiptap from "~/core/components/Tiptap";
+import type { Post } from "@prisma/client";
 
-const PostForm = () => {
-  const [title, setTitle] = useState("");
-	const [emoji, setEmoji] = useState("");
-  const [content, setContent] = useState("");
+const PostForm = (post: Post) => {
+	const [title, setTitle] = useState(post.name);
+	const [emoji, setEmoji] = useState(post.emoji);
+	const [content, setContent] = useState("");
 	const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-  useEffect(() => {
-    if (title && emoji) {
-      console.log("Title: ", title);
-      console.log("Emoji: ", emoji);
-    }
-  }, [title, emoji]);
+	useEffect(() => {
+		if (title && emoji) {
+			console.log("Title: ", title);
+			console.log("Emoji: ", emoji);
+		}
+	}, [title, emoji]);
 
 	return (
 		<div className="flex flex-col gap-8 pt-28">
@@ -25,7 +26,7 @@ const PostForm = () => {
 					type="text"
 					className="input focus:outline-none border-none w-full text-xl"
 					placeholder="Title"
-          onChange={(e) => setTitle(e.target.value)}
+					onChange={(e) => setTitle(e.target.value)}
 				/>
 
 				<div className="relative flex">
