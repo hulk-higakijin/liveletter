@@ -27,6 +27,7 @@ const PostForm = (post: Post) => {
 					className="input focus:outline-none border-none w-full text-xl"
 					placeholder="Title"
 					onChange={(e) => setTitle(e.target.value)}
+          defaultValue={title}
 				/>
 
 				<div className="relative flex">
