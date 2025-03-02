@@ -5,19 +5,30 @@ import { GrEmoji } from "react-icons/gr";
 import { useEffect, useState } from "react";
 import Tiptap from "~/core/components/Tiptap";
 import type { Post } from "@prisma/client";
+import { api } from "~/trpc/react";
+import { useParams } from "next/navigation";
 
 const PostForm = (post: Post) => {
-	const [title, setTitle] = useState(post.name );
+	const [title, setTitle] = useState(post.name);
 	const [emoji, setEmoji] = useState(post.emoji);
 	const [content, setContent] = useState("");
 	const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+	const updatePost = api.post.update.useMutation();
+	const param = useParams<{ id: string }>();
 
 	useEffect(() => {
 		if (title && emoji) {
-			console.log("Title: ", title);
-			console.log("Emoji: ", emoji);
+			const timer = setTimeout(() => {
+				updatePost.mutate({
+					id: param.id,
+					name: title,
+					emoji,
+					status: "DRAFT",
+				});
+			}, 1000);
+			return () => clearTimeout(timer);
 		}
-	}, [title, emoji]);
+	}, [title, emoji, param.id, updatePost.mutate]);
 
 	return (
 		<div className="flex flex-col gap-8 pt-28">
@@ -27,7 +38,7 @@ const PostForm = (post: Post) => {
 					className="input focus:outline-none border-none w-full text-xl"
 					placeholder="Title"
 					onChange={(e) => setTitle(e.target.value)}
-          defaultValue={title}
+					defaultValue={title}
 				/>
 
 				<div className="relative flex">

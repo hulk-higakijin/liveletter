@@ -1,3 +1,4 @@
+import { PostStatus } from "@prisma/client";
 import { z } from "zod";
 
 import {
@@ -39,6 +40,22 @@ export const postRouter = createTRPCRouter({
 			},
 		});
 	}),
+
+	update: protectedProcedure
+		.input(
+			z.object({
+				id: z.string(),
+				name: z.string(),
+				emoji: z.string(),
+				status: z.nativeEnum(PostStatus),
+			}),
+		)
+		.mutation(async ({ ctx, input }) => {
+			return ctx.db.post.update({
+				where: { id: input.id, createdById: ctx.session.user.id },
+				data: {...input },
+			});
+		}),
 
 	getLatest: protectedProcedure.query(async ({ ctx }) => {
 		const post = await ctx.db.post.findFirst({
