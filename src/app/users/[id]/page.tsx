@@ -25,7 +25,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 					<span className="my-auto">{user.name}</span>
 					{isMyPage && (
 						<Link
-							href={"/posts/new"}
+							href={"/posts/edit"}
 							className="btn btn-neutral btn-circle ml-auto"
 						>
 							<GoPencil className="text-lg" />
