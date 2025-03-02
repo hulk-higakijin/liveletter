@@ -45,9 +45,18 @@ export const postRouter = createTRPCRouter({
 		.query(async ({ input }) => {
 			const posts = await db.post.findMany({
 				where: { createdById: input.id },
-        orderBy: { createdAt: "desc" },
+				orderBy: { createdAt: "desc" },
 			});
 
 			return { posts };
+		}),
+
+	findOne: publicProcedure
+		.input(z.object({ id: z.string() }))
+		.query(async ({ input }) => {
+			const post = await db.post.findUnique({
+				where: { id: input.id },
+			});
+			return { post };
 		}),
 });

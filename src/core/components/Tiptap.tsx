@@ -17,15 +17,16 @@ const Tiptap = () => {
 			TextAlign.configure({ types: ["heading", "paragraph"] }),
 			Link,
 			Image,
-			Placeholder.configure({ placeholder: "Write something amazing..." }),
+			Placeholder.configure({ placeholder: "Content" }),
 		],
 	});
 
-  useEffect(() => {
-    editor?.commands.focus()
-  }, [editor])
-
-	return <EditorContent editor={editor} autoFocus />;
+	return (
+		<EditorContent
+			editor={editor}
+			className="px-4"
+		/>
+	);
 };
 
 export default Tiptap;
