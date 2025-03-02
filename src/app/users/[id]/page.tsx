@@ -9,7 +9,7 @@ import { auth } from "~/server/auth";
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 	const { id } = await params;
 	const { user } = await api.user.findOne({ id });
-	const { posts } = await api.post.whereByUserId({ id: user?.id || "" });
+	const { posts } = await api.post.whereByUserId({ id: user?.id ?? "" });
 	const session = await auth();
 	const isMyPage = session?.user?.id === user?.id;
 
@@ -34,15 +34,15 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 				</div>
 
 				<div role="tablist" className="tabs tabs-bordered border-primary">
-					<a role="tab" className="tab">
-						すべて
-					</a>
-					<a role="tab" className="tab tab-active">
-						日記
-					</a>
-					<a role="tab" className="tab">
-						メモ
-					</a>
+					{/* <a role="tab" className="tab"> */}
+					{/* 	すべて */}
+					{/* </a> */}
+					{/* <a role="tab" className="tab tab-active"> */}
+					{/* 	日記 */}
+					{/* </a> */}
+					{/* <a role="tab" className="tab"> */}
+					{/* 	メモ */}
+					{/* </a> */}
 				</div>
 
 				<div className="grid md:grid-cols-3 gap-x-4 gap-y-10 my-10">
