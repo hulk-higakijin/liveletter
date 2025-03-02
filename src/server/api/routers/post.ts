@@ -21,7 +21,7 @@ export const postRouter = createTRPCRouter({
 			z.object({ name: z.string().min(1), emoji: z.string().min(1).max(1) }),
 		)
 		.mutation(async ({ ctx, input }) => {
-			return ctx.db.post.upsert({
+			return ctx.db.post.create({
 				data: {
 					name: input.name,
           emoji: input.emoji,
