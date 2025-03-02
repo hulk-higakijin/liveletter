@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const PostCard = ({ id, emoji, name, createdAt }: Post) => {
 	return (
-		<Link href={`/post/${id}`}>
+		<Link href={`/posts/${id}`}>
 			<div className="card bg-base-100 shadow-sm">
 				<figure className="bg-blue-100 h-32 rounded-lg text-4xl">
 					{emoji}
