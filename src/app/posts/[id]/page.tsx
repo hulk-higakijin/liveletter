@@ -7,6 +7,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 	const { id } = await params;
 	const { post } = await api.post.findOne({ id });
 	const { user } = await api.user.findOne({ id: post?.createdById || "" });
+	const { pens } = await api.pen.getByPostId({ postId: post?.id || "" });
 
 	if (!post || !user) {
 		return <div>Post not found</div>;
@@ -23,6 +24,9 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 						<p className="text-7xl mx-auto">{post.emoji}</p>
 						<PostContentAnimation {...post} />
 					</div>
+					{pens.map((pen) => (
+						<div key={pen.id}>{pen.content}</div>
+					))}
 				</div>
 			</div>
 		</Layout>
