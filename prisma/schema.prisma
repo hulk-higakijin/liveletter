@@ -15,17 +15,24 @@ datasource db {
 }
 
 model Post {
-  id        String   @id @default(cuid())
+  id        String     @id @default(cuid())
   name      String
   emoji     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  status    PostStatus @default(DRAFT)
 
   createdBy   User   @relation(fields: [createdById], references: [id])
   createdById String
   pens        Pen[]
 
   @@index([name])
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
 }
 
 // Necessary for Next auth
@@ -76,10 +83,10 @@ model VerificationToken {
 }
 
 model Pen {
-  id      String @id @default(cuid())
-  postId  String
-  post    Post   @relation(fields: [postId], references: [id])
-  content String
+  id        String   @id @default(cuid())
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id])
+  content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

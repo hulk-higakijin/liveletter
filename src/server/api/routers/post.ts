@@ -17,11 +17,14 @@ export const postRouter = createTRPCRouter({
 		}),
 
 	create: protectedProcedure
-		.input(z.object({ name: z.string().min(1) }))
+		.input(
+			z.object({ name: z.string().min(1), emoji: z.string().min(1).max(1) }),
+		)
 		.mutation(async ({ ctx, input }) => {
-			return ctx.db.post.create({
+			return ctx.db.post.upsert({
 				data: {
 					name: input.name,
+          emoji: input.emoji,
 					createdBy: { connect: { id: ctx.session.user.id } },
 				},
 			});
